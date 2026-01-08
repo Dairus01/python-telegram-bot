@@ -52,7 +52,7 @@ def unique_gift():
 
 
 class UniqueGiftTestBase:
-    gift_id = "123"
+    gift_id = "unique_gift_id"
     base_name = "human_readable"
     name = "unique_name"
     number = 10
@@ -82,7 +82,7 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
 
     def test_de_json(self, offline_bot):
         json_dict = {
-            "id": self.gift_id,
+            "gift_id": self.gift_id,
             "base_name": self.base_name,
             "name": self.name,
             "number": self.number,

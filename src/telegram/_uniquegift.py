@@ -260,6 +260,8 @@ class UniqueGift(TelegramObject):
 
     Args:
         gift_id (:obj:`str`): Unique identifier of the gift.
+
+            .. versionadded:: 22.5
         base_name (:obj:`str`): Human-readable name of the regular gift from which this unique
             gift was upgraded.
         name (:obj:`str`): Unique name of the gift. This name can be used
@@ -276,6 +278,8 @@ class UniqueGift(TelegramObject):
 
     Attributes:
         gift_id (:obj:`str`): Unique identifier of the gift.
+
+            .. versionadded:: 22.5
         base_name (:obj:`str`): Human-readable name of the regular gift from which this unique
             gift was upgraded.
         name (:obj:`str`): Unique name of the gift. This name can be used
@@ -334,9 +338,6 @@ class UniqueGift(TelegramObject):
     def de_json(cls, data: JSONDict, bot: "Bot | None" = None) -> "UniqueGift":
         """See :meth:`telegram.TelegramObject.de_json`."""
         data = cls._parse_data(data)
-
-        if "id" in data:
-            data["gift_id"] = data.pop("id")
 
         data["model"] = de_json_optional(data.get("model"), UniqueGiftModel, bot)
         data["symbol"] = de_json_optional(data.get("symbol"), UniqueGiftSymbol, bot)
