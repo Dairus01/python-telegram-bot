@@ -254,12 +254,14 @@ class UniqueGift(TelegramObject):
     """This object describes a unique gift that was upgraded from a regular gift.
 
     Objects of this class are comparable in terms of equality. Two objects of this class are
-    considered equal if their :attr:`base_name`, :attr:`name`, :attr:`number`, :class:`model`,
-    :attr:`symbol`, and :attr:`backdrop` are equal.
+    considered equal if their :attr:`gift_id` is equal.
 
     .. versionadded:: 22.1
 
     Args:
+        gift_id (:obj:`str`): Unique identifier of the gift.
+
+            .. versionadded:: 22.5
         base_name (:obj:`str`): Human-readable name of the regular gift from which this unique
             gift was upgraded.
         name (:obj:`str`): Unique name of the gift. This name can be used
@@ -275,6 +277,9 @@ class UniqueGift(TelegramObject):
             .. versionadded:: 22.4
 
     Attributes:
+        gift_id (:obj:`str`): Unique identifier of the gift.
+
+            .. versionadded:: 22.5
         base_name (:obj:`str`): Human-readable name of the regular gift from which this unique
             gift was upgraded.
         name (:obj:`str`): Unique name of the gift. This name can be used
@@ -294,6 +299,7 @@ class UniqueGift(TelegramObject):
     __slots__ = (
         "backdrop",
         "base_name",
+        "gift_id",
         "model",
         "name",
         "number",
@@ -303,6 +309,7 @@ class UniqueGift(TelegramObject):
 
     def __init__(
         self,
+        gift_id: str,
         base_name: str,
         name: str,
         number: int,
@@ -314,6 +321,7 @@ class UniqueGift(TelegramObject):
         api_kwargs: JSONDict | None = None,
     ):
         super().__init__(api_kwargs=api_kwargs)
+        self.gift_id: str = gift_id
         self.base_name: str = base_name
         self.name: str = name
         self.number: int = number
@@ -322,14 +330,7 @@ class UniqueGift(TelegramObject):
         self.backdrop: UniqueGiftBackdrop = backdrop
         self.publisher_chat: Chat | None = publisher_chat
 
-        self._id_attrs = (
-            self.base_name,
-            self.name,
-            self.number,
-            self.model,
-            self.symbol,
-            self.backdrop,
-        )
+        self._id_attrs = (self.gift_id,)
 
         self._freeze()
 

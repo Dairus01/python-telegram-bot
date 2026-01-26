@@ -40,6 +40,7 @@ from tests.auxil.slots import mro_slots
 @pytest.fixture
 def unique_gift():
     return UniqueGift(
+        gift_id=UniqueGiftTestBase.gift_id,
         base_name=UniqueGiftTestBase.base_name,
         name=UniqueGiftTestBase.name,
         number=UniqueGiftTestBase.number,
@@ -51,6 +52,7 @@ def unique_gift():
 
 
 class UniqueGiftTestBase:
+    gift_id = "unique_gift_id"
     base_name = "human_readable"
     name = "unique_name"
     number = 10
@@ -80,6 +82,7 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
 
     def test_de_json(self, offline_bot):
         json_dict = {
+            "gift_id": self.gift_id,
             "base_name": self.base_name,
             "name": self.name,
             "number": self.number,
@@ -91,6 +94,7 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
         unique_gift = UniqueGift.de_json(json_dict, offline_bot)
         assert unique_gift.api_kwargs == {}
 
+        assert unique_gift.gift_id == self.gift_id
         assert unique_gift.base_name == self.base_name
         assert unique_gift.name == self.name
         assert unique_gift.number == self.number
@@ -103,6 +107,7 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
         gift_dict = unique_gift.to_dict()
 
         assert isinstance(gift_dict, dict)
+        assert gift_dict["gift_id"] == self.gift_id
         assert gift_dict["base_name"] == self.base_name
         assert gift_dict["name"] == self.name
         assert gift_dict["number"] == self.number
@@ -114,6 +119,7 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
     def test_equality(self, unique_gift):
         a = unique_gift
         b = UniqueGift(
+            self.gift_id,
             self.base_name,
             self.name,
             self.number,
@@ -123,7 +129,8 @@ class TestUniqueGiftWithoutRequest(UniqueGiftTestBase):
             self.publisher_chat,
         )
         c = UniqueGift(
-            "other_base_name",
+            "other_id",
+            self.base_name,
             self.name,
             self.number,
             self.model,
@@ -402,6 +409,7 @@ def unique_gift_info():
 
 class UniqueGiftInfoTestBase:
     gift = UniqueGift(
+        "gift_id",
         "human_readable_name",
         "unique_name",
         10,
