@@ -1999,7 +1999,6 @@ class MessageLimit(IntEnum):
 
     __slots__ = ()
 
-    # TODO add links to params?
     MAX_TEXT_LENGTH = 4096
     """:obj:`int`: Maximum number of characters in a :obj:`str` passed as:
 
@@ -2010,6 +2009,8 @@ class MessageLimit(IntEnum):
     * :paramref:`~telegram.Bot.send_message.text` parameter of :meth:`telegram.Bot.send_message`
     * :paramref:`~telegram.Bot.edit_message_text.text` parameter of
       :meth:`telegram.Bot.edit_message_text`
+    * :paramref:`~telegram.Message.reply_text.text` parameter of :meth:`telegram.Message.reply_text`
+    * :paramref:`~telegram.Message.edit_text.text` parameter of :meth:`telegram.Message.edit_text`
     """
     CAPTION_LENGTH = 1024
     """:obj:`int`: Maximum number of characters in a :obj:`str` passed as:
